@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Aplicações Mobile'),
+      home: MyHomePage(title: 'Aplicações Mob'),
       
     );
   }

@@ -1,8 +1,8 @@
+import 'package:app_flutter/MaterialShowImage.dart';
 import 'package:flutter/material.dart';
-import 'MyApp.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialShowImageApp());
 }
 
 
@@ -24,11 +24,11 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
-  void _decrementCounter() {
+ /*  void _decrementCounter() {
     setState(() {
       _counter--;
     });
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Voce apertou o botão todas essas vezes',
+              'Voce apertou o botão todas essas vezes ??w',
             ),
             Text(
               '$_counter',
