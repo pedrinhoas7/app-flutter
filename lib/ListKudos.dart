@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AulaMaterialApp02 extends StatelessWidget {
+class ListKudos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

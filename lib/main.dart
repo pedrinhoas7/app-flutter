@@ -1,65 +1,68 @@
-import 'package:app_flutter/MaterialShowImage.dart';
+import 'dart:async';
+
+import 'package:app_flutter/AppMenuBar.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MaterialShowImageApp());
-}
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
-
-class MyHomePage extends StatefulWidget {
+void main() => runApp(AppMenuBar());
+class MyApp extends StatelessWidget {
   
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
 
+  
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Google Maps Demo',
+      home: MapSample(),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class MapSample extends StatefulWidget {
+  @override
+  State<MapSample> createState() => MapSampleState();
+}
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
- /*  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  } */
+class MapSampleState extends State<MapSample> {
+  Completer<GoogleMapController> _controller = Completer();
+
+  
+
+  static final CameraPosition _kPersonalCam = CameraPosition(
+    target: LatLng(-7.1195, -34.8450),
+    zoom: 13.1,
+  );
+
+  static final CameraPosition _kPersonalRom = CameraPosition(
+      bearing: 130.8,
+      target: LatLng(-7.1589, -34.8551),
+      tilt: 20.2,
+      zoom: 17);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    
+    return new Scaffold(
+      body: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: _kPersonalCam,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Voce apertou o botão todas essas vezes ??w',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _gotToThePersonalRom,
+        label: Text('To the lake!'),
+        icon: Icon(Icons.edit
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), 
-     /*  floatingActionButton: FloatingActionButton(
-      onPressed: _decrementCounter,
-      tooltip: 'Decrement',
-      child: Icon(Icons.delete),
-      ), */
     );
+  }
+
+  Future<void> _gotToThePersonalRom() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_kPersonalRom));
   }
 }
